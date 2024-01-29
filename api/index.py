@@ -30,4 +30,4 @@ def login():
 @app.route("/callback")
 def callback():
     session["code"] = request.args.get("code")
-    return f"Your code is {session["code"]}"
+    return session["code"]
