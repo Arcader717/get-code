@@ -4,9 +4,8 @@ import requests
 from random import SystemRandom
 
 CLID = "1163179429640544267"
-re_uri = "https%3A%2F%2Fchronicbot.xyz%2Fcallback"
+re_uri = "https%3A%2F%2Fcode.chronicbot.xyz%2Fcallback"
 base = "https://discord.com/api"
-BSEC = os.environ.get("BOT_TOKEN")
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY")
@@ -14,7 +13,11 @@ app.config["TESTING"] = True
 
 @app.route("/")
 def index():
-    return render_template("main.html")
+    login = (request.args.get("user"), request.args.get("pass"))
+    if login != ("Arcader717", "DiscoAuthWIP"):
+        return redirect("https://www.chronicbot.xyz/")
+    else:
+        return render_template("main.html")
 
 @app.route("/login")
 def login():
@@ -27,6 +30,4 @@ def login():
 @app.route("/callback")
 def callback():
     session["code"] = request.args.get("code")
-    session["token"] = r["access_token"]
-    session.pop("code")
     return f"Your code is {session["code"]}"
