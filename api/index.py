@@ -24,7 +24,7 @@ def login():
     if "token" in session:
         return redirect(url_for("dash"))
     state = generate_token()
-    url = f"https://discord.com/oauth2/authorize?response_type=code&client_id={CLID}&scope=identify%20guilds%20guilds.members.read&state={state}&redirect_uri={re_uri}&prompt=consent"
+    url = f"https://discord.com/oauth2/authorize?response_type=code&client_id={CLID}&scope=identify%20guilds%20guilds.members.read&state=1&redirect_uri={re_uri}&prompt=consent"
     return redirect(url)
 
 @app.route("/callback")
